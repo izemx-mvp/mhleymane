@@ -2,7 +2,7 @@ import { site } from "@/config/site";
 
 export type LeadSource = "formulaire_devis" | "formulaire_contact";
 
-export type SubmitResult = { ok: true; via: "endpoint" | "mailto" | "ignored" } | { ok: false };
+export type SubmitResult = { ok: true; via: "endpoint" | "local" | "ignored" } | { ok: false };
 
 /** Délai minimal (ms) entre l'affichage du formulaire et l'envoi : en dessous, il s'agit d'un robot. */
 export const MIN_FILL_TIME = 3000;
@@ -12,13 +12,11 @@ export const HONEYPOT = "site_web";
 
 type Field = { label: string; value: string | string[] | boolean | undefined };
 
-const toText = (v: Field["value"]) =>
-  Array.isArray(v) ? v.join(", ") : typeof v === "boolean" ? (v ? "Oui" : "Non") : (v ?? "");
-
 /**
  * Envoie une demande :
  * - vers `site.formEndpoint` (POST JSON compatible Formspree) s'il est défini ;
- * - sinon, ouvre la messagerie de l'internaute avec un e-mail pré-rempli vers `site.email`.
+ * - sinon (endpoint non configuré), la demande n'est envoyée nulle part : le formulaire
+ *   affiche simplement le message de réussite. Renseigner `formEndpoint` avant la mise en ligne.
  */
 export async function submitLead({
   source,
@@ -55,17 +53,11 @@ export async function submitLead({
     }
   }
 
-  // Repli : e-mail pré-rempli
-  const body = [
-    `${subject}`,
-    "",
-    ...Object.values(fields)
-      .filter((f) => toText(f.value) !== "")
-      .map((f) => `${f.label} : ${toText(f.value)}`),
-    "",
-    `Source : ${source}`,
-  ].join("\n");
-  const href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = href;
-  return { ok: true, via: "mailto" };
+  // Endpoint non configuré : on reste sur la page et on affiche la confirmation.
+  if (import.meta.env.DEV) {
+    console.warn(
+      "[formulaires] site.formEndpoint est vide : la demande n'a été envoyée nulle part.",
+    );
+  }
+  return { ok: true, via: "local" };
 }

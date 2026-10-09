@@ -32,7 +32,6 @@ type Values = z.infer<typeof schema>;
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "error" | "success">("idle");
-  const [viaMailto, setViaMailto] = useState(false);
   const [honeypot, setHoneypot] = useState("");
   const startedAt = useRef(Date.now());
   const {
@@ -70,7 +69,6 @@ export function ContactForm() {
       },
     });
     if (result.ok) {
-      setViaMailto(result.via === "mailto");
       setStatus("success");
     } else setStatus("error");
   };
@@ -80,7 +78,6 @@ export function ContactForm() {
       <SuccessState
         title="Message envoyé"
         text={`Merci, nous revenons vers vous sous ${site.responseDelay}.`}
-        viaMailto={viaMailto}
         action={
           <button
             type="button"

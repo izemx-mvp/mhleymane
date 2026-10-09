@@ -162,12 +162,10 @@ export function ConsentText() {
 export function SuccessState({
   title,
   text,
-  viaMailto,
   action,
 }: {
   title: string;
   text: string;
-  viaMailto?: boolean;
   action?: ReactNode;
 }) {
   const reduce = useReducedMotion();
@@ -198,16 +196,6 @@ export function SuccessState({
       <h2 className="mt-8 text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)]">{title}</h2>
       <DiamondRule className="my-6" />
       <p className="tagline max-w-lg text-xl text-muted-foreground">{text}</p>
-      {viaMailto && (
-        <p className="mt-6 max-w-lg rounded-2xl border border-line bg-sand px-5 py-4 text-sm text-ink/80">
-          Votre messagerie s'est ouverte avec un e-mail pré-rempli : pensez à l'envoyer pour
-          finaliser votre demande. Si rien ne s'est ouvert, écrivez-nous à{" "}
-          <a href={`mailto:${site.email}`} className="link-gold font-semibold text-gold-ink">
-            {site.email}
-          </a>
-          .
-        </p>
-      )}
       {action && <div className="mt-8">{action}</div>}
     </div>
   );

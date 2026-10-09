@@ -82,7 +82,6 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
   const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
   const [status, setStatus] = useState<"idle" | "sending" | "error" | "success">("idle");
-  const [viaMailto, setViaMailto] = useState(false);
   const [honeypot, setHoneypot] = useState("");
   const startedAt = useRef(Date.now());
   const topRef = useRef<HTMLDivElement>(null);
@@ -164,7 +163,6 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
       },
     });
     if (result.ok) {
-      setViaMailto(result.via === "mailto");
       setStatus("success");
       topRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     } else {
@@ -178,7 +176,6 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
         <SuccessState
           title="Merci pour votre demande"
           text={`Nous revenons vers vous sous ${site.responseDelay} pour échanger sur votre projet.`}
-          viaMailto={viaMailto}
           action={
             <Link to="/" className="btn btn-secondary">
               Retour à l'accueil
