@@ -13,11 +13,19 @@ export function ReadingProgress({ target }: { target: RefObject<HTMLElement | nu
   const { scrollYProgress } = useScroll({ target, offset: ["start start", "end end"] });
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
   return (
-    <m.div
+    <div
       aria-hidden="true"
-      className="fixed inset-x-0 top-[68px] z-[49] h-[2px] origin-left"
-      style={{ scaleX, background: "var(--gradient-gold)" }}
-    />
+      className="pointer-events-none fixed inset-x-0 top-0 z-[70] h-[3px] bg-ink/5"
+    >
+      <m.div
+        className="h-full origin-left"
+        style={{
+          scaleX,
+          background: "var(--gradient-gold)",
+          boxShadow: "0 0 10px rgb(201 161 59 / 0.6)",
+        }}
+      />
+    </div>
   );
 }
 
