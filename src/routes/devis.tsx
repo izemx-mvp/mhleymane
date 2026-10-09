@@ -1,14 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { services } from "@/data/services";
 import { seo } from "@/lib/seo";
 import { PageHero } from "@/components/site/ui";
-import { Field, Consent, Success, errorsFrom } from "@/components/site/forms";
+import { Field, Consent, Success, errorsFrom, type Errs } from "@/components/site/forms";
 
 export const Route = createFileRoute("/devis")({
-  validateSearch: zodValidator(z.object({ service: fallback(z.string(), "").default("") })),
+  validateSearch: (s: Record<string, unknown>): { service?: string } => (typeof s["service"] === "string" ? { service: s["service"] } : {}),
   head: () => seo("Demander un devis de nettoyage – MHLEYMANE", "Obtenez une proposition de nettoyage sur mesure pour vos bureaux, commerce, restaurant ou site industriel dans les Yvelines.", "/devis"),
   component: Devis,
 });
@@ -29,11 +28,11 @@ const schema = z.object({
 
 function Devis() {
   const { service } = Route.useSearch();
-  const [form, setForm] = useState<Record<string, string>>({ service: services.some((s) => s.slug === service) ? service : "", premises: "", surface: "", frequency: "", city: "", name: "", company: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ service: service && services.some((s) => s.slug === service) ? service : "", premises: "", surface: "", frequency: "", city: "", name: "", company: "", email: "", phone: "", message: "" });
   const [consent, setConsent] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errs>({});
   const [sent, setSent] = useState(false);
-  const set = (k: string) => (e: { target: { value: string } }) => setForm({ ...form, [k]: e.target.value });
+  const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm({ ...form, [k]: e.target.value });
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();

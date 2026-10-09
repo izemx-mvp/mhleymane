@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
-export function Field({ label, error, children, full }: { label: string; error?: string; children: ReactNode; full?: boolean }) {
+export function Field({ label, error, children, full }: { label: string; error?: string | undefined; children: ReactNode; full?: boolean }) {
   return (
     <label className={`block ${full ? "sm:col-span-2" : ""}`}>
       <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</span>
@@ -12,7 +12,7 @@ export function Field({ label, error, children, full }: { label: string; error?:
   );
 }
 
-export function Consent({ checked, onChange, error }: { checked: boolean; onChange: (v: boolean) => void; error?: string }) {
+export function Consent({ checked, onChange, error }: { checked: boolean; onChange: (v: boolean) => void; error?: string | undefined }) {
   return (
     <div className="sm:col-span-2">
       <label className="flex gap-3 text-sm text-muted-foreground">
@@ -34,5 +34,6 @@ export function Success({ title, text }: { title: string; text: string }) {
   );
 }
 
-export const errorsFrom = (issues: { path: (string | number)[]; message: string }[]) =>
-  Object.fromEntries(issues.map((i) => [String(i.path[0]), i.message]));
+export type Errs = Partial<Record<"service" | "premises" | "surface" | "frequency" | "city" | "name" | "company" | "email" | "phone" | "message" | "subject" | "consent", string>>;
+export const errorsFrom = (issues: { path: (string | number)[]; message: string }[]): Errs =>
+  Object.fromEntries(issues.map((i) => [String(i.path[0]), i.message])) as Errs;
