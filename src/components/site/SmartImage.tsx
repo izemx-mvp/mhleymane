@@ -49,7 +49,7 @@ export function PlaceholderMedia({
             <span
               className={cn(
                 "relative text-[0.68rem]",
-                tone === "sand" ? "text-stone" : "text-ivory/50",
+                tone === "sand" ? "text-stone-ink" : "text-ivory/50",
               )}
             >
               {file}
@@ -106,6 +106,10 @@ export function SmartImage({
   }, [src]);
 
   const file = src.split("/").pop();
+  // Les visuels traités par `npm run images` ont une variante mobile « -sm » (800 px)
+  const srcSet = /^\/images\/[\w-]+\.webp$/.test(src)
+    ? `${src.replace(/\.webp$/, "-sm.webp")} 800w, ${src} ${width}w`
+    : undefined;
 
   return (
     <div
@@ -123,6 +127,7 @@ export function SmartImage({
         <img
           ref={ref}
           src={src}
+          srcSet={srcSet}
           alt={alt}
           width={width}
           height={height}

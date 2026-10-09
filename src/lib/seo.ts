@@ -34,7 +34,8 @@ export function seo({
   article,
 }: SeoInput) {
   const url = absoluteUrl(path);
-  const img = absoluteUrl(image);
+  // Les visuels WebP ont une déclinaison JPEG 1200×630 pour les réseaux sociaux
+  const img = absoluteUrl(image.replace(/^(\/images\/[\w-]+)\.webp$/, "$1-og.jpg"));
   const meta: Record<string, string>[] = [
     { title },
     { name: "description", content: description },

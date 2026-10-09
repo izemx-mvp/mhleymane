@@ -42,7 +42,7 @@ export const sectors: Sector[] = [
     relatedServices: ["nettoyage-bureaux", "entretien-batiments", "remise-en-etat"],
     image: {
       src: "/images/service-bureaux.webp",
-      alt: "Bureaux contemporains lumineux et parfaitement entretenus",
+      alt: "Bureaux haut de gamme entretenus, parois vitrées impeccables",
     },
   },
   {
@@ -63,7 +63,7 @@ export const sectors: Sector[] = [
     relatedServices: ["nettoyage-commerces", "remise-en-etat"],
     image: {
       src: "/images/service-commerces.webp",
-      alt: "Surface de vente élégante aux présentoirs et sols impeccables",
+      alt: "Boutique élégante au sol de marbre parfaitement entretenu",
     },
   },
   {
@@ -105,7 +105,7 @@ export const sectors: Sector[] = [
     relatedServices: ["nettoyage-industriel", "nettoyage-bureaux"],
     image: {
       src: "/images/service-industriel.webp",
-      alt: "Entrepôt industriel ordonné aux allées dégagées",
+      alt: "Entrepôt lumineux aux sols nets, nettoyé à l'autolaveuse",
     },
   },
   {
@@ -126,7 +126,7 @@ export const sectors: Sector[] = [
     relatedServices: ["entretien-batiments", "remise-en-etat"],
     image: {
       src: "/images/service-batiments.webp",
-      alt: "Hall d'immeuble résidentiel élégant et parfaitement entretenu",
+      alt: "Hall d'immeuble élégant et son escalier, parfaitement entretenus",
     },
     toConfirm: true,
   },

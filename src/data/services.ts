@@ -90,7 +90,7 @@ const allServices: Service[] = [
     ],
     image: {
       src: "/images/service-bureaux.webp",
-      alt: "Open space lumineux et parfaitement entretenu, sols brillants et postes de travail rangés",
+      alt: "Agent d'entretien nettoyant une paroi vitrée dans des bureaux haut de gamme",
     },
     enabled: true,
   },
@@ -138,7 +138,7 @@ const allServices: Service[] = [
     ],
     image: {
       src: "/images/service-commerces.webp",
-      alt: "Boutique haut de gamme aux vitrines impeccables et au sol réfléchissant",
+      alt: "Agent d'entretien lavant le sol en marbre d'une boutique élégante",
     },
     enabled: true,
   },
@@ -186,7 +186,7 @@ const allServices: Service[] = [
     ],
     image: {
       src: "/images/service-restaurants.webp",
-      alt: "Salle de restaurant élégante dressée, tables et sols impeccables",
+      alt: "Agent d'entretien en salle d'un restaurant raffiné, tables dressées",
     },
     enabled: true,
   },
@@ -233,7 +233,7 @@ const allServices: Service[] = [
     ],
     image: {
       src: "/images/service-industriel.webp",
-      alt: "Entrepôt industriel moderne aux sols nets et allées dégagées",
+      alt: "Autolaveuse nettoyant le sol d'un vaste entrepôt lumineux",
     },
     enabled: true,
   },
@@ -281,7 +281,7 @@ const allServices: Service[] = [
     ],
     image: {
       src: "/images/service-batiments.webp",
-      alt: "Hall d'immeuble élégant au sol en marbre poli et aux parois vitrées",
+      alt: "Agent nettoyant l'escalier d'un hall d'immeuble élégant",
     },
     enabled: true,
   },
@@ -329,7 +329,7 @@ const allServices: Service[] = [
     ],
     image: {
       src: "/images/service-remise-en-etat.webp",
-      alt: "Espace fraîchement rénové, baigné de lumière, prêt à être livré",
+      alt: "Pièce rénovée baignée de lumière, parquet et menuiseries impeccables",
     },
     toConfirm: true,
     enabled: true,
