@@ -34,6 +34,11 @@ export default tseslint.config(
       ],
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@typescript-eslint/no-unused-vars": "off",
+      // Typographie française : espaces insécables autorisées dans les textes (pas dans le code)
+      "no-irregular-whitespace": [
+        "error",
+        { skipStrings: true, skipTemplates: true, skipJSXText: true, skipComments: true },
+      ],
     },
   },
   eslintPluginPrettier,
