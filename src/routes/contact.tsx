@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { site } from "@/config/site";
 import { seo } from "@/lib/seo";
 import { PageHero } from "@/components/site/ui";
-import { Field, Consent, Success, errorsFrom } from "@/components/site/forms";
+import { Field, Consent, Success, errorsFrom, type Errs } from "@/components/site/forms";
 
 export const Route = createFileRoute("/contact")({
   head: () => seo("Contact – MHLEYMANE, nettoyage à Villepreux (78)", "Contactez MHLEYMANE, société de nettoyage au 2 Rue du Docteur Alexandre à Villepreux, pour toute question ou demande.", "/contact"),
@@ -24,7 +24,7 @@ const schema = z.object({
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [consent, setConsent] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errs>({});
   const [sent, setSent] = useState(false);
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) => setForm({ ...form, [k]: e.target.value });
   const { lat, lng } = site.geo;
