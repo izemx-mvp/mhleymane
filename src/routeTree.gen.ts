@@ -12,9 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as DevisRouteImport } from './routes/devis'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SecteursRouteImport } from './routes/secteurs'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
@@ -35,6 +39,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DevisRoute = DevisRouteImport.update({
   id: '/devis',
   path: '/devis',
@@ -51,6 +60,21 @@ const PolitiqueDeConfidentialiteRoute =
     path: '/politique-de-confidentialite',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecteursRoute = SecteursRouteImport.update({
+  id: '/secteurs',
+  path: '/secteurs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -76,9 +100,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/devis': typeof DevisRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/secteurs': typeof SecteursRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -88,9 +116,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/devis': typeof DevisRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/secteurs': typeof SecteursRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog': typeof BlogIndexRoute
@@ -101,9 +133,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/devis': typeof DevisRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/secteurs': typeof SecteursRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -115,9 +151,13 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/contact'
+    | '/cookies'
     | '/devis'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
+    | '/robots.txt'
+    | '/secteurs'
+    | '/sitemap.xml'
     | '/blog/$slug'
     | '/services/$slug'
     | '/blog/'
@@ -127,9 +167,13 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/contact'
+    | '/cookies'
     | '/devis'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
+    | '/robots.txt'
+    | '/secteurs'
+    | '/sitemap.xml'
     | '/blog/$slug'
     | '/services/$slug'
     | '/blog'
@@ -139,9 +183,13 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/contact'
+    | '/cookies'
     | '/devis'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
+    | '/robots.txt'
+    | '/secteurs'
+    | '/sitemap.xml'
     | '/blog/$slug'
     | '/services/$slug'
     | '/blog/'
@@ -152,9 +200,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
   DevisRoute: typeof DevisRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SecteursRoute: typeof SecteursRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -184,6 +236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/devis': {
       id: '/devis'
       path: '/devis'
@@ -203,6 +262,27 @@ declare module '@tanstack/react-router' {
       path: '/politique-de-confidentialite'
       fullPath: '/politique-de-confidentialite'
       preLoaderRoute: typeof PolitiqueDeConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/secteurs': {
+      id: '/secteurs'
+      path: '/secteurs'
+      fullPath: '/secteurs'
+      preLoaderRoute: typeof SecteursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -240,9 +320,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
   DevisRoute: DevisRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SecteursRoute: SecteursRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   BlogSlugRoute: BlogSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,

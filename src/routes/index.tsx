@@ -1,185 +1,469 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Clock, Leaf, Handshake, Building2, Store, UtensilsCrossed, Factory, Building, HeartPulse, Plus } from "lucide-react";
-import { useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  ArrowRight,
+  BadgeCheck,
+  CalendarClock,
+  Gem,
+  Layers,
+  Quote,
+  UserRound,
+  Clock4,
+} from "lucide-react";
+import { site } from "@/config/site";
 import { services } from "@/data/services";
-import { posts, formatDate } from "@/data/posts";
-import { seo } from "@/lib/seo";
-import { Divider, Reveal, SectionTitle, Sparkle, Droplet, GoldWaves, CtaBand, PostCover } from "@/components/site/ui";
+import { sectors } from "@/data/sectors";
+import { homeFaq } from "@/data/faq";
+import { posts } from "@/data/posts";
+import { testimonials } from "@/data/testimonials";
+import { seo, faqLd } from "@/lib/seo";
+import { ArticleCard, ServiceCard, SectorCard } from "@/components/site/cards";
+import { CTABanner, FAQAccordion, MethodTimeline, StatItem } from "@/components/site/blocks";
+import { DiamondRule, Droplet, GoldDropletArt, Sparkle } from "@/components/site/motifs";
+import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
+import { GoldWord, SectionEyebrow, SectionTitle } from "@/components/site/Section";
+import { SmartImage } from "@/components/site/SmartImage";
 
 export const Route = createFileRoute("/")({
-  head: () => seo("MHLEYMANE – Société de nettoyage professionnel à Villepreux (78)", "Nettoyage de bureaux, commerces, restaurants et sites industriels dans les Yvelines. Demandez votre devis à MHLEYMANE.", "/"),
+  head: () =>
+    seo({
+      title: "Société de nettoyage à Villepreux (78) – Bureaux, commerces, industrie | MHLEYMANE",
+      description:
+        "MHLEYMANE, société de nettoyage professionnel à Villepreux (Yvelines) : bureaux, locaux commerciaux, magasins, restaurants et sites industriels. Devis gratuit.",
+      path: "/",
+      jsonLd: [faqLd(homeFaq)],
+    }),
   component: Home,
 });
 
-const reasons = [
-  { icon: ShieldCheck, title: "Exigence", text: "Un niveau de finition constant, contrôlé à chaque intervention." },
-  { icon: Clock, title: "Flexibilité", text: "Des horaires adaptés à votre activité, sans perturber vos équipes." },
-  { icon: Handshake, title: "Proximité", text: "Un interlocuteur dédié, à l'écoute et réactif." },
-  { icon: Leaf, title: "Respect", text: "Des méthodes soucieuses de vos locaux et de vos occupants." },
-];
-const sectors = [
-  { icon: Building2, label: "Bureaux & sièges" },
-  { icon: Store, label: "Commerces" },
-  { icon: UtensilsCrossed, label: "Restauration" },
-  { icon: Factory, label: "Industrie & logistique" },
-  { icon: Building, label: "Copropriétés & syndics" },
-  { icon: HeartPulse, label: "Établissements recevant du public" },
-];
-const steps = [
-  { t: "Échange", d: "Vous nous présentez vos locaux et vos attentes." },
-  { t: "Visite & devis", d: "Nous évaluons le besoin et vous adressons une proposition claire." },
-  { t: "Mise en place", d: "Un planning et un cahier des charges définis ensemble." },
-  { t: "Suivi", d: "Un contrôle régulier de la qualité et un dialogue permanent." },
-];
-const faqs = [
-  { q: "Dans quelle zone intervenez-vous ?", a: "Nous sommes basés à Villepreux, dans les Yvelines. Contactez-nous pour vérifier que votre adresse fait partie de notre zone d'intervention." },
-  { q: "Intervenez-vous en dehors des heures de bureau ?", a: "Oui, nous adaptons nos horaires à votre activité : tôt le matin, en soirée ou pendant vos heures d'ouverture selon vos préférences." },
-  { q: "Proposez-vous des interventions ponctuelles ?", a: "Oui, en plus des contrats d'entretien réguliers, nous réalisons des remises en état après travaux, déménagement ou avant un état des lieux." },
-  { q: "Comment est établi le devis ?", a: "Le devis dépend du type de locaux, de la surface, de la fréquence et de vos attentes. Une visite préalable peut être proposée pour plus de précision." },
-  { q: "Fournissez-vous le matériel et les produits ?", a: "Oui, nos équipes interviennent avec leur propre matériel et des produits adaptés à chaque type de surface." },
-  { q: "Combien de temps pour recevoir une proposition ?", a: "Nous revenons vers vous dans les meilleurs délais après réception de votre demande pour échanger sur votre projet." },
-];
-
 function Home() {
-  const [open, setOpen] = useState<number | null>(0);
   return (
     <>
-      {/* HERO */}
-      <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-sand pt-28">
-        <GoldWaves className="absolute inset-0 h-full w-full" />
-        <motion.div className="pointer-events-none absolute right-[8%] top-[22%] text-gold" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity }}>
-          <Droplet className="h-24 w-16 opacity-50" />
-        </motion.div>
-        <Sparkle className="absolute left-[10%] top-[30%] h-5 w-5 animate-pulse text-gold" />
-        <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="eyebrow mb-6">Société de nettoyage · Yvelines</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }} className="text-4xl leading-[1.15] sm:text-6xl">
-            La propreté professionnelle, <span className="text-gold-gradient">avec exigence</span>
-          </motion.h1>
-          <Divider className="my-8" />
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 1 }} className="tagline mx-auto max-w-2xl text-xl text-muted-foreground sm:text-2xl">
-            Bureaux, commerces, restaurants et sites industriels : nous prenons soin de vos locaux pour que vous puissiez vous consacrer à l'essentiel.
-          </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link to="/devis" className="btn-gold rounded-md px-8 py-4 text-sm font-semibold uppercase tracking-widest">Demander un devis</Link>
-            <Link to="/services" className="rounded-md border border-foreground/30 px-8 py-4 text-sm font-semibold uppercase tracking-widest transition hover:border-gold hover:text-gold-deep">Nos services</Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionTitle eyebrow="Nos prestations" title="Des services sur mesure" tagline="Un savoir-faire adapté à chaque environnement professionnel." />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => (
-              <Reveal key={s.slug} delay={i * 0.07}>
-                <Link to="/services/$slug" params={{ slug: s.slug }} className="card-lift group relative block h-full rounded-lg border bg-card p-8">
-                  <Sparkle className="absolute right-6 top-6 h-4 w-4 text-gold opacity-0 transition group-hover:opacity-100" />
-                  <s.icon className="h-9 w-9 text-gold-deep" strokeWidth={1.3} />
-                  <h3 className="mt-6 text-lg">{s.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.short}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gold-deep">Découvrir <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" /></span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY */}
-      <section className="relative overflow-hidden bg-ink py-24 text-ink-foreground">
-        <GoldWaves className="absolute inset-0 h-full w-full opacity-30" />
-        <div className="relative mx-auto max-w-7xl px-6">
-          <SectionTitle light eyebrow="Notre engagement" title="Pourquoi nous choisir" tagline="Une exigence de chaque instant, au service de votre image." />
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {reasons.map((r, i) => (
-              <Reveal key={r.title} delay={i * 0.1} className="text-center">
-                <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-gold/50"><r.icon className="h-7 w-7 text-gold" strokeWidth={1.3} /></div>
-                <h3 className="mt-6 text-base text-gold-light">{r.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-foreground/70">{r.text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTORS */}
-      <section className="py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <SectionTitle eyebrow="Secteurs" title="Ils nous confient leurs locaux" />
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {sectors.map((s, i) => (
-              <Reveal key={s.label} delay={i * 0.05}>
-                <div className="card-lift flex items-center gap-4 rounded-lg border bg-card p-5">
-                  <s.icon className="h-6 w-6 shrink-0 text-gold-deep" strokeWidth={1.4} />
-                  <span className="text-sm font-medium">{s.label}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* METHOD */}
-      <section className="bg-sand py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <SectionTitle eyebrow="Notre méthode" title="Quatre étapes, une exigence" />
-          <div className="grid gap-8 md:grid-cols-4">
-            {steps.map((s, i) => (
-              <Reveal key={s.t} delay={i * 0.1} className="relative text-center">
-                <p className="text-gold-gradient font-display text-5xl">0{i + 1}</p>
-                <h3 className="mt-4 text-base">{s.t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* BLOG */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionTitle eyebrow="Le journal" title="Conseils & actualités" />
-          <div className="grid gap-6 md:grid-cols-3">
-            {posts.slice(0, 3).map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.08}>
-                <Link to="/blog/$slug" params={{ slug: p.slug }} className="card-lift block overflow-hidden rounded-lg border bg-card">
-                  <PostCover variant={p.cover} className="aspect-[16/10]" />
-                  <div className="p-6">
-                    <p className="eyebrow">{p.category} · {formatDate(p.date)}</p>
-                    <h3 className="mt-3 text-base leading-snug">{p.title}</h3>
-                    <p className="mt-3 text-sm text-muted-foreground">{p.excerpt}</p>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="bg-sand py-24">
-        <div className="mx-auto max-w-3xl px-6">
-          <SectionTitle eyebrow="FAQ" title="Questions fréquentes" />
-          <div className="space-y-3">
-            {faqs.map((f, i) => (
-              <Reveal key={f.q} delay={i * 0.04}>
-                <div className="rounded-lg border bg-card">
-                  <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center justify-between gap-4 p-5 text-left font-medium">
-                    {f.q}
-                    <Plus className={`h-5 w-5 shrink-0 text-gold-deep transition ${open === i ? "rotate-45" : ""}`} />
-                  </button>
-                  {open === i && <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CtaBand />
+      <Hero />
+      <ServicesOverview />
+      <WhyUs />
+      <Sectors />
+      <Method />
+      <KeyFigures />
+      {site.showTestimonials && <Testimonials />}
+      <LatestPosts />
+      <Faq />
+      <CTABanner />
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+const chips = [
+  { icon: BadgeCheck, label: "Devis gratuit" },
+  { icon: CalendarClock, label: "Intervention planifiée selon vos horaires" },
+  { icon: UserRound, label: "Interlocutrice dédiée" },
+];
+
+function Hero() {
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const yBack = useTransform(scrollY, [0, 700], [0, reduce ? 0 : 120]);
+  const yFront = useTransform(scrollY, [0, 700], [0, reduce ? 0 : -60]);
+
+  return (
+    <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-ivory pb-16 pt-[calc(var(--header-h)+2.5rem)] lg:pb-24">
+      {/* Fond : reflets lumineux et grandes gouttes en contour */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 55% at 78% 30%, rgb(255 255 255 / 0.95), transparent 70%), radial-gradient(45% 50% at 10% 90%, rgb(201 161 59 / 0.1), transparent 70%), linear-gradient(115deg, transparent 40%, rgb(233 207 122 / 0.12) 52%, transparent 64%)",
+          }}
+        />
+        <motion.div style={{ y: yBack }} className="absolute -left-24 top-24 text-gold/15">
+          <Droplet className="h-[30rem] w-[22rem]" strokeWidth={0.4} />
+        </motion.div>
+        <motion.div
+          style={{ y: yFront }}
+          className="absolute bottom-[-6rem] right-[38%] hidden text-gold/20 lg:block"
+        >
+          <Droplet className="h-60 w-44" strokeWidth={0.5} />
+        </motion.div>
+      </div>
+
+      <div className="container-x grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+        <div className="min-w-0">
+          <p className="eyebrow animate-fade-up">
+            Société de nettoyage — Yvelines &amp; Île-de-France
+          </p>
+          <h1 className="mt-6 animate-fade-up text-ink [animation-delay:80ms]">
+            La propreté professionnelle, avec{" "}
+            <span className="relative inline-block">
+              <GoldWord>exigence</GoldWord>
+              <Sparkle className="animate-glint absolute -right-5 -top-3 h-5 w-5 text-gold md:-right-7 md:h-6 md:w-6" />
+            </span>
+          </h1>
+          <DiamondRule
+            align="start"
+            width="lg"
+            className="mt-8 animate-fade-up [animation-delay:160ms]"
+          />
+          <p className="mt-8 max-w-xl animate-fade-up text-lg leading-relaxed text-ink/75 [animation-delay:220ms] md:text-xl">
+            Bureaux, locaux commerciaux, magasins, restaurants et sites industriels : nous
+            entretenons vos espaces avec méthode et discrétion, pour que vous vous consacriez à
+            l'essentiel.
+          </p>
+          <div className="mt-10 flex animate-fade-up flex-col gap-3 [animation-delay:300ms] sm:flex-row">
+            <Link to="/devis" className="btn btn-primary">
+              Demander un devis gratuit
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link to="/services" className="btn btn-secondary">
+              Découvrir nos services
+            </Link>
+          </div>
+          <ul className="mt-12 flex flex-wrap gap-2.5">
+            {chips.map((c, i) => (
+              <li
+                key={c.label}
+                className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-line bg-white/80 px-4 py-2 text-[0.8125rem] font-medium text-ink/80"
+                style={{ animationDelay: `${450 + i * 100}ms` }}
+              >
+                <c.icon className="h-4 w-4 text-gold-ink" strokeWidth={1.6} aria-hidden="true" />
+                {c.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Composition : photo encadrée + goutte dorée */}
+        <div className="relative mx-auto w-full max-w-[560px] animate-fade-in [animation-delay:200ms] lg:max-w-none">
+          <div
+            className="absolute -right-3 -top-3 bottom-3 left-3 rounded-[28px] border border-gold/50 md:-right-5 md:-top-5 md:bottom-5 md:left-5"
+            aria-hidden="true"
+          />
+          <SmartImage
+            src="/images/hero-accueil.webp"
+            alt="Espace professionnel lumineux aux sols impeccables et aux surfaces brillantes"
+            width={1920}
+            height={1080}
+            priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="aspect-[4/5] rounded-[24px] shadow-lift sm:aspect-[5/4] lg:aspect-[4/5]"
+            imgClassName="animate-slow-zoom"
+            placeholderTone="ink"
+          >
+            <div className="img-overlay pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/5 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 text-ivory">
+              <p className="tagline max-w-[16rem] text-xl leading-snug md:text-2xl">
+                « {site.baseline} »
+              </p>
+              <span className="hidden font-display text-[0.65rem] tracking-[0.3em] text-gold-light sm:block">
+                DEPUIS {site.foundedYear}
+              </span>
+            </div>
+          </SmartImage>
+          <div className="absolute -bottom-10 -left-4 w-28 drop-shadow-[0_18px_30px_rgb(140_106_30_/_0.35)] md:-left-12 md:w-40">
+            <div className="animate-float-slow">
+              <GoldDropletArt id="hero-drop" className="h-auto w-full" />
+            </div>
+            <Sparkle className="animate-glint absolute -right-2 top-4 h-6 w-6 text-gold-light [animation-delay:2s]" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function ServicesOverview() {
+  return (
+    <section className="section-y bg-ivory" aria-labelledby="services-title">
+      <div className="container-x">
+        <SectionTitle
+          id="services-title"
+          eyebrow="Nos services"
+          title={
+            <>
+              Un savoir-faire pour <GoldWord>chaque espace</GoldWord>
+            </>
+          }
+          lead="Du bureau au site industriel, une prestation construite autour de vos locaux, de vos horaires et de votre niveau d'exigence."
+        />
+        <RevealGroup className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <RevealItem key={s.slug}>
+              <ServiceCard service={s} />
+            </RevealItem>
+          ))}
+        </RevealGroup>
+        <Reveal className="mt-14 text-center">
+          <Link
+            to="/services"
+            className="link-gold inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-gold-ink"
+          >
+            Voir tous nos services <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+const pillars = [
+  {
+    icon: Gem,
+    title: "Exigence & contrôle qualité",
+    text: "Un plan de nettoyage précis et des points de contrôle réguliers pour un résultat constant.",
+  },
+  {
+    icon: Clock4,
+    title: "Flexibilité des horaires",
+    text: "Tôt le matin, en soirée ou le week-end : des passages calés sur votre activité (à confirmer selon les sites).",
+  },
+  {
+    icon: Layers,
+    title: "Méthodes adaptées à chaque surface",
+    text: "Produits et techniques choisis selon la nature des sols, des matériaux et des usages.",
+  },
+  {
+    icon: UserRound,
+    title: "Interlocutrice unique",
+    text: "Une personne dédiée qui connaît vos locaux, joignable et réactive pour ajuster la prestation.",
+  },
+];
+
+function WhyUs() {
+  return (
+    <section
+      className="section-y relative isolate overflow-hidden bg-ink text-ivory"
+      aria-labelledby="why-title"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(45% 60% at 100% 0%, rgb(201 161 59 / 0.12), transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className="container-x grid gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+        <Reveal>
+          <SectionEyebrow tone="dark" align="start">
+            Pourquoi nous choisir
+          </SectionEyebrow>
+          <h2 id="why-title" className="mt-6 text-ivory">
+            L'exigence comme <GoldWord>signature</GoldWord>
+          </h2>
+          {/* CONTENU EXEMPLE À REMPLACER */}
+          <p className="tagline mt-8 text-2xl leading-snug text-ivory/85 md:text-[1.75rem]">
+            Nous croyons qu'un lieu bien tenu change la façon dont on y travaille, dont on y
+            accueille, dont on y revient. Chaque intervention est pensée comme un service rendu à
+            vos équipes et à vos visiteurs.
+          </p>
+          <SmartImage
+            src="/images/pourquoi-nous-choisir.webp"
+            alt="Détail d'une surface polie reflétant la lumière, symbole d'un entretien soigné"
+            width={1200}
+            height={1500}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            placeholderTone="ink"
+            className="img-zoom mt-12 aspect-[4/5] max-w-md rounded-[22px] border border-gold/30"
+          >
+            <div className="img-overlay pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent" />
+          </SmartImage>
+        </Reveal>
+        <RevealGroup
+          as="ul"
+          className="grid gap-px self-center overflow-hidden rounded-[22px] border border-ivory/10 bg-ivory/10 sm:grid-cols-2"
+        >
+          {pillars.map((p) => (
+            <RevealItem
+              as="li"
+              key={p.title}
+              className="group bg-ink p-8 transition-colors duration-500 hover:bg-charcoal md:p-10"
+            >
+              <p.icon
+                className="h-9 w-9 text-gold transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110"
+                strokeWidth={1.2}
+                aria-hidden="true"
+              />
+              <h3 className="mt-7 text-lg text-ivory">{p.title}</h3>
+              <span
+                className="mt-4 block h-px w-8 bg-gold transition-all duration-500 group-hover:w-16"
+                aria-hidden="true"
+              />
+              <p className="mt-4 leading-relaxed text-ivory/70">{p.text}</p>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function Sectors() {
+  return (
+    <section className="section-y bg-sand" aria-labelledby="sectors-title">
+      <div className="container-x">
+        <SectionTitle
+          id="sectors-title"
+          eyebrow="Secteurs"
+          title="Ils nous confient leurs espaces"
+          lead="Chaque secteur a ses contraintes. Nous adaptons nos méthodes, nos horaires et notre organisation à la réalité de votre activité."
+        />
+      </div>
+      <RevealGroup
+        as="ul"
+        className="container-x flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:thin] xl:grid xl:grid-cols-5 xl:overflow-visible"
+      >
+        {sectors.map((s) => (
+          <RevealItem
+            as="li"
+            key={s.slug}
+            className="w-[78%] shrink-0 snap-start sm:w-[45%] lg:w-[31%] xl:w-auto"
+          >
+            <SectorCard sector={s} />
+          </RevealItem>
+        ))}
+      </RevealGroup>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function Method() {
+  return (
+    <section className="section-y bg-ivory" aria-labelledby="method-title">
+      <div className="container-x">
+        <SectionTitle
+          id="method-title"
+          eyebrow="Notre méthode"
+          title="Quatre étapes, une exigence"
+          lead="Une démarche claire, du premier échange au suivi de la qualité."
+        />
+        <MethodTimeline />
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function KeyFigures() {
+  return (
+    <section
+      className="relative isolate overflow-hidden bg-ink py-20 text-ivory md:py-24"
+      aria-labelledby="figures-title"
+    >
+      <h2 id="figures-title" className="sr-only">
+        Chiffres clés
+      </h2>
+      <RevealGroup className="container-x grid grid-cols-2 gap-y-14 lg:grid-cols-4 lg:divide-x lg:divide-ivory/10">
+        {site.stats.map((s) => (
+          <RevealItem key={s.label}>
+            <StatItem stat={s} tone="dark" />
+          </RevealItem>
+        ))}
+      </RevealGroup>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function Testimonials() {
+  return (
+    <section className="section-y bg-sand" aria-labelledby="testimonials-title">
+      <div className="container-x">
+        <SectionTitle id="testimonials-title" eyebrow="Témoignages" title="Ils en parlent" />
+        <RevealGroup className="grid gap-6 md:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <RevealItem key={i}>
+              <figure className="card-luxe flex h-full flex-col p-8">
+                <Quote className="h-7 w-7 text-gold" strokeWidth={1.2} aria-hidden="true" />
+                <blockquote className="tagline mt-5 flex-1 text-xl leading-snug text-ink">
+                  « {t.quote} »
+                </blockquote>
+                <figcaption className="mt-6 border-t border-line pt-5 text-sm">
+                  <span className="block font-semibold text-ink">{t.author}</span>
+                  <span className="text-muted-foreground">
+                    {t.role}
+                    {t.company ? `, ${t.company}` : ""}
+                  </span>
+                </figcaption>
+              </figure>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function LatestPosts() {
+  return (
+    <section className="section-y bg-ivory" aria-labelledby="posts-title">
+      <div className="container-x">
+        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <SectionTitle
+            id="posts-title"
+            eyebrow="Conseils & actualités"
+            title="Le journal"
+            align="start"
+            className="mb-0 md:mb-0"
+          />
+          <Reveal>
+            <Link
+              to="/blog"
+              className="link-gold inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-gold-ink"
+            >
+              Voir tous les articles <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </Reveal>
+        </div>
+        <RevealGroup className="mt-12 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+          {posts.slice(0, 3).map((p) => (
+            <RevealItem key={p.slug}>
+              <ArticleCard post={p} />
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+function Faq() {
+  return (
+    <section className="section-y bg-sand" aria-labelledby="faq-title">
+      <div className="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <SectionTitle
+          id="faq-title"
+          eyebrow="Questions fréquentes"
+          title="Vos questions, nos réponses"
+          lead="Vous ne trouvez pas votre réponse ? Notre équipe vous répond directement."
+          align="start"
+          className="lg:sticky lg:top-32 lg:self-start"
+        />
+        <Reveal>
+          <FAQAccordion items={homeFaq} />
+          <Link
+            to="/contact"
+            className="link-gold mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-gold-ink"
+          >
+            Poser une question <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
   );
 }
