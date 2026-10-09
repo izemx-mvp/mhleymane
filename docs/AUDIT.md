@@ -75,3 +75,16 @@ Date de l'audit : 9 octobre 2026. Référence : `docs/SPEC.md` + différences li
 3. Pages, une par une.
 4. Finitions animations / responsive / typographie.
 5. SEO, sitemap, accessibilité, vérification build + lint à chaque étape.
+
+---
+
+## 8. Résolution (9 octobre 2026)
+
+Tous les écarts ci-dessus ont été traités. Points notables :
+
+- **Stack conservée** : TanStack Start (SSR) + Tailwind v4 ; SEO via `head()` des routes (équivalent SSR de react-helmet-async).
+- **Formulaires** : react-hook-form + zod, envoi JSON vers `site.formEndpoint` (Formspree) ou repli `mailto:` ; champ piège + délai minimal anti-robots.
+- **Visuels** : `<SmartImage>` (repli « PHOTO À FOURNIR »), `srcset` mobile, script `npm run images` (originaux dans `assets-src/images/`, non versionnés).
+- **Performance** : polices auto-hébergées (@fontsource), animations Framer Motion chargées à la demande (`LazyMotion`), bundle initial allégé.
+- **Lighthouse (build de production servi en local via Wrangler, mobile)** : Accessibilité / Bonnes pratiques / SEO = 100 sur les pages testées. Performance : 70 à 91 en mode simulé selon les passages (mesure très variable en local), 97 sur l'accueil avec limitation réelle (DevTools). À confirmer sur l'hébergement définitif avec PageSpeed Insights.
+- **Contraste** : or lisible `--gold-ink` (#7A5C17) et pierre lisible `--stone-ink` (#6E695E) pour le texte sur fonds clairs ; l'or #C9A13B est réservé aux fonds sombres et aux éléments décoratifs.

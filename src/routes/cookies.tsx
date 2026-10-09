@@ -70,10 +70,6 @@ function CookiesPage() {
       <LegalSection title="Services tiers">
         <ul>
           <li>
-            <strong>Polices de caractères</strong> : chargées depuis Google Fonts, ce qui implique
-            une connexion aux serveurs de Google (transmission de votre adresse IP).
-          </li>
-          <li>
             <strong>Carte</strong> de la page Contact : tuiles fournies par OpenStreetMap, ce qui
             implique une connexion à leurs serveurs.
           </li>

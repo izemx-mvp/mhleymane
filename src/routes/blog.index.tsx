@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, m, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -176,7 +176,7 @@ function BlogPage() {
                       >
                         {c.label}
                         {active && (
-                          <motion.span
+                          <m.span
                             layoutId="cat-underline"
                             className="absolute inset-x-3 -bottom-px h-[2px] rounded-full"
                             style={{ background: "var(--gradient-gold)" }}
@@ -194,7 +194,7 @@ function BlogPage() {
                 Rechercher un article
               </label>
               <Search
-                className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone"
+                className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-ink"
                 aria-hidden="true"
               />
               <input
@@ -210,7 +210,7 @@ function BlogPage() {
                   type="button"
                   onClick={() => setQuery("")}
                   aria-label="Effacer la recherche"
-                  className="absolute right-3 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full text-stone hover:text-ink"
+                  className="absolute right-3 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full text-stone-ink hover:text-ink"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -225,10 +225,10 @@ function BlogPage() {
           </p>
 
           {visible.length > 0 ? (
-            <motion.ul layout className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <m.ul layout className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <AnimatePresence mode="popLayout" initial={false}>
                 {visible.map((p, i) => (
-                  <motion.li
+                  <m.li
                     key={p.slug}
                     layout={!reduce}
                     initial={{ opacity: 0, y: reduce ? 0 : 24 }}
@@ -240,10 +240,10 @@ function BlogPage() {
                     exit={{ opacity: 0, scale: reduce ? 1 : 0.97, transition: { duration: 0.2 } }}
                   >
                     <ArticleCard post={p} />
-                  </motion.li>
+                  </m.li>
                 ))}
               </AnimatePresence>
-            </motion.ul>
+            </m.ul>
           ) : (
             <div className="mt-16 flex flex-col items-center text-center">
               <div className="relative grid h-28 w-28 place-items-center rounded-full bg-sand">

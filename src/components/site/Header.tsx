@@ -1,11 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { site } from "@/config/site";
 import { services } from "@/data/services";
-import { PhoneLink } from "./blocks";
+import { PhoneLink } from "./PhoneLink";
 import { DiamondRule } from "./motifs";
 import { EASE_LUXE } from "./Reveal";
 
@@ -131,7 +131,7 @@ export function Header() {
             scrolled ? "h-[68px]" : "h-[var(--header-h)]",
           )}
         >
-          <Link to="/" aria-label="MHLEYMANE — accueil" className="shrink-0 rounded-sm">
+          <Link to="/" className="shrink-0 rounded-sm">
             <BrandLogo tone={onDark ? "light" : "dark"} />
           </Link>
 
@@ -228,7 +228,7 @@ export function Header() {
         {/* Méga-menu services */}
         <AnimatePresence>
           {megaOpen && (
-            <motion.div
+            <m.div
               id={megaId}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -289,7 +289,7 @@ export function Header() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </header>
@@ -319,7 +319,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           id="menu-mobile"
           role="dialog"
           aria-modal="true"
@@ -331,7 +331,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           transition={{ duration: 0.3 }}
         >
           <div className="container-x flex h-[var(--header-h)] shrink-0 items-center justify-between">
-            <Link to="/" onClick={onClose} aria-label="MHLEYMANE — accueil">
+            <Link to="/" onClick={onClose}>
               <BrandLogo tone="light" />
             </Link>
             <button
@@ -345,7 +345,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             </button>
           </div>
           <nav aria-label="Navigation mobile" className="container-x flex-1 pt-8">
-            <motion.ul
+            <m.ul
               className="flex flex-col"
               initial="hidden"
               animate="show"
@@ -355,7 +355,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               }}
             >
               {navLinks.map((n) => (
-                <motion.li
+                <m.li
                   key={n.to}
                   variants={{
                     hidden: { opacity: 0, y: reduce ? 0 : 18 },
@@ -372,9 +372,9 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                   >
                     {n.label}
                   </Link>
-                </motion.li>
+                </m.li>
               ))}
-            </motion.ul>
+            </m.ul>
           </nav>
           <div className="container-x shrink-0 pb-10 pt-8">
             <DiamondRule align="start" className="mb-6" />
@@ -388,7 +388,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               </PhoneLink>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

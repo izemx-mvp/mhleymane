@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Cookie } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { EASE_LUXE } from "./Reveal";
@@ -84,7 +84,7 @@ export function CookieConsent() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           ref={ref}
           role="region"
           aria-label="Gestion des cookies"
@@ -188,7 +188,7 @@ export function CookieConsent() {
               </div>
             </div>
           )}
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

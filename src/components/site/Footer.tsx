@@ -3,7 +3,7 @@ import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { site } from "@/config/site";
 import { services } from "@/data/services";
 import { openCookieManager } from "./CookieConsent";
-import { PhoneLink } from "./blocks";
+import { PhoneLink } from "./PhoneLink";
 import { DiamondRule } from "./motifs";
 
 const company = [

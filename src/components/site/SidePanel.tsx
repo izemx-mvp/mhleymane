@@ -1,7 +1,7 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import type { ReactNode } from "react";
 import { site, fullAddress } from "@/config/site";
-import { PhoneLink } from "./blocks";
+import { PhoneLink } from "./PhoneLink";
 import { DiamondRule, DropletBullet } from "./motifs";
 import { SmartImage } from "./SmartImage";
 
@@ -21,7 +21,7 @@ export function SidePanel({ title = "Vos interlocuteurs" }: { title?: string }) 
     >
       <SmartImage
         src="/images/devis-visuel.webp"
-        alt="Bureau élégant et parfaitement entretenu, baigné de lumière"
+        alt="Salle de réunion élégante aux fauteuils clairs, parfaitement entretenue"
         width={1200}
         height={1500}
         sizes="420px"

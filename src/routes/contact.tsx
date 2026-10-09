@@ -6,7 +6,7 @@ import { seo, breadcrumbLd } from "@/lib/seo";
 import { PageHero } from "@/components/site/PageHero";
 import { ContactForm } from "@/components/site/ContactForm";
 import { LeafletMap } from "@/components/site/LeafletMap";
-import { PhoneLink } from "@/components/site/blocks";
+import { PhoneLink } from "@/components/site/PhoneLink";
 import { DiamondRule } from "@/components/site/motifs";
 import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { SectionTitle } from "@/components/site/Section";
@@ -56,7 +56,7 @@ function ContactPage() {
           <Reveal delay={0.1} className="flex flex-col gap-6">
             <SmartImage
               src="/images/devis-visuel.webp"
-              alt="Bureau élégant et parfaitement entretenu, baigné de lumière"
+              alt="Salle de réunion élégante aux fauteuils clairs, parfaitement entretenue"
               width={1200}
               height={1500}
               sizes="(min-width: 1024px) 480px, 100vw"

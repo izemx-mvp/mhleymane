@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { AlertCircle, Check } from "lucide-react";
 import { cloneElement, isValidElement, useId, type ReactElement, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { site } from "@/config/site";
 import { HONEYPOT } from "@/lib/forms";
-import { PhoneLink } from "./blocks";
+import { PhoneLink } from "./PhoneLink";
 import { DiamondRule, Droplet, Sparkle } from "./motifs";
 import { EASE_LUXE } from "./Reveal";
 
@@ -178,22 +178,22 @@ export function SuccessState({
       className="flex flex-col items-center px-4 py-10 text-center md:py-14"
     >
       <div className="relative h-20 w-20">
-        <motion.div
+        <m.div
           className="absolute inset-0 grid place-items-center text-gold"
           initial={{ opacity: 1, y: reduce ? 0 : -30, scale: 1 }}
           animate={{ opacity: 0, y: 0, scale: 0.4 }}
           transition={{ duration: 0.7, ease: EASE_LUXE }}
         >
           <Droplet filled className="h-12 w-9" />
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           className="absolute inset-0 grid place-items-center text-gold"
           initial={{ opacity: 0, scale: 0.2, rotate: reduce ? 0 : -45 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 0.8, delay: reduce ? 0 : 0.55, ease: EASE_LUXE }}
         >
           <Sparkle className="h-16 w-16" />
-        </motion.div>
+        </m.div>
       </div>
       <h2 className="mt-8 text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)]">{title}</h2>
       <DiamondRule className="my-6" />

@@ -170,7 +170,7 @@ function ServiceDetail() {
                     <p
                       className={cn(
                         "mt-5 text-xs font-semibold uppercase tracking-[0.14em]",
-                        available ? "text-gold-ink" : "text-stone",
+                        available ? "text-gold-ink" : "text-stone-ink",
                       )}
                     >
                       {available ? "Disponible" : "Non proposé pour ce service"}

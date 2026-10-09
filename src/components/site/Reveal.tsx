@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { m, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
 export const EASE_LUXE = [0.22, 1, 0.36, 1] as const;
@@ -28,7 +28,7 @@ type RevealProps = {
 /** Apparition au défilement (déclenchée une fois, à 20 % de visibilité) */
 export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
   const variants = useRevealVariants(delay);
-  const Comp = motion[as];
+  const Comp = m[as];
   return (
     <Comp
       className={className}
@@ -54,7 +54,7 @@ export function RevealGroup({
   as?: "div" | "ul" | "ol" | "dl";
   stagger?: number;
 }) {
-  const Comp = motion[as];
+  const Comp = m[as];
   return (
     <Comp
       className={className}
@@ -78,7 +78,7 @@ export function RevealItem({
   as?: "div" | "li" | "article";
 }) {
   const variants = useRevealVariants();
-  const Comp = motion[as];
+  const Comp = m[as];
   return (
     <Comp className={className} variants={variants}>
       {children}

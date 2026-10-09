@@ -1,6 +1,14 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+/* Polices auto-hébergées (aucun appel à Google Fonts) */
+@import "@fontsource/cinzel/latin-500.css";
+@import "@fontsource/cinzel/latin-600.css";
+@import "@fontsource/cormorant-garamond/latin-400-italic.css";
+@import "@fontsource/cormorant-garamond/latin-500-italic.css";
+@import "@fontsource/manrope/latin-400.css";
+@import "@fontsource/manrope/latin-500.css";
+@import "@fontsource/manrope/latin-600.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -21,6 +29,7 @@
   --color-ivory: var(--ivory);
   --color-sand: var(--sand);
   --color-stone: var(--stone);
+  --color-stone-ink: var(--stone-ink);
   --color-line: var(--line);
   --color-white: #ffffff;
 
@@ -78,6 +87,8 @@
   --ivory: #faf7f0;
   --sand: #f2ecdf;
   --stone: #8a857a;
+  /* Pierre « lisible » : texte discret conforme AA (≥ 4,5:1 sur blanc, ivoire, sable) */
+  --stone-ink: #6e695e;
   --line: #e3dccb;
   --muted-text: #5f5a50;
 
@@ -496,7 +507,8 @@
 
 @keyframes fade-up {
   from {
-    opacity: 0;
+    /* 0.01 et non 0 : l'élément reste éligible au LCP dès le premier rendu */
+    opacity: 0.01;
     transform: translate3d(0, 24px, 0);
   }
   to {
@@ -506,7 +518,7 @@
 }
 @keyframes fade-in {
   from {
-    opacity: 0;
+    opacity: 0.01;
   }
   to {
     opacity: 1;

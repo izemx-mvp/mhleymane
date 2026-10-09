@@ -113,7 +113,7 @@ function About() {
             />
             <SmartImage
               src="/images/a-propos-equipe.webp"
-              alt="Locaux professionnels lumineux et soigneusement entretenus"
+              alt="Agents d'entretien en tenue noire traversant un hall élégant"
               width={1600}
               height={1067}
               sizes="(min-width: 1024px) 600px, 100vw"
@@ -236,7 +236,7 @@ function About() {
                   <div>
                     <h3 className="text-lg">{c.title}</h3>
                     <p className="mt-2 leading-relaxed text-muted-foreground">{c.text}</p>
-                    <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-stone">
+                    <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-stone-ink">
                       {c.note}
                     </p>
                   </div>
@@ -247,7 +247,7 @@ function About() {
           <Reveal className="relative lg:sticky lg:top-28">
             <SmartImage
               src="/images/a-propos-materiel.webp"
-              alt="Matériel et produits d'entretien professionnels soigneusement rangés"
+              alt="Produits d'entretien, serviettes et raclette disposés sur un plan en marbre noir"
               width={1200}
               height={1500}
               sizes="(min-width: 1024px) 480px, 100vw"
@@ -274,25 +274,23 @@ function About() {
             </div>
             <dl className="mt-10 grid gap-px overflow-hidden rounded-[18px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
               {identity.map((it) => (
-                <div key={it.label} className="flex gap-4 bg-ivory p-6">
-                  <it.icon
-                    className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                      {it.label}
-                    </dt>
-                    <dd
-                      className={cn(
-                        "mt-1.5 font-semibold",
-                        isPlaceholder(it.value) ? "text-stone" : "text-ink",
-                      )}
-                    >
-                      {it.value}
-                    </dd>
-                  </div>
+                <div key={it.label} className="relative bg-ivory p-6 pl-[3.75rem]">
+                  <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                    <it.icon
+                      className="absolute left-6 top-[1.6rem] h-5 w-5 text-gold-ink"
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                    />
+                    {it.label}
+                  </dt>
+                  <dd
+                    className={cn(
+                      "mt-1.5 font-semibold",
+                      isPlaceholder(it.value) ? "text-stone-ink" : "text-ink",
+                    )}
+                  >
+                    {it.value}
+                  </dd>
                 </div>
               ))}
             </dl>

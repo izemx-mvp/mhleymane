@@ -1,15 +1,14 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "framer-motion";
+import { LazyMotion, m, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -22,10 +21,6 @@ import { FloatingActions } from "@/components/site/FloatingActions";
 import { CookieConsent } from "@/components/site/CookieConsent";
 import { DiamondRule, Droplet } from "@/components/site/motifs";
 import { EASE_LUXE } from "@/components/site/Reveal";
-import { Toaster } from "@/components/ui/sonner";
-
-const FONTS =
-  "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap";
 
 /** Loader : une seule fois par session (le script s'exécute avant le rendu) */
 const LOADER_SCRIPT = `try{var k="mhl-loaded";if(sessionStorage.getItem(k)||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("no-loader")}else{sessionStorage.setItem(k,"1")}}catch(e){document.documentElement.classList.add("no-loader")}`;
@@ -102,7 +97,10 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+/** Fonctionnalités d'animation chargées à la demande (allège le bundle initial) */
+const loadMotionFeatures = () => import("@/lib/motion-features").then((mod) => mod.default);
+
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -119,9 +117,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale", content: "fr_FR" },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: FONTS },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon.png" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
@@ -171,7 +166,7 @@ function RouteTransition({ children }: { children: ReactNode }) {
   return (
     <>
       {animateEntry && (
-        <motion.div
+        <m.div
           key={`bar-${pathname}`}
           aria-hidden="true"
           className="fixed inset-x-0 top-0 z-[70] h-[2px] origin-left"
@@ -185,22 +180,21 @@ function RouteTransition({ children }: { children: ReactNode }) {
           }}
         />
       )}
-      <motion.div
+      <m.div
         key={pathname}
         initial={animateEntry ? { opacity: 0, y: 12 } : false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: EASE_LUXE }}
       >
         {children}
-      </motion.div>
+      </m.div>
     </>
   );
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
   return (
-    <QueryClientProvider client={queryClient}>
+    <LazyMotion features={loadMotionFeatures} strict>
       <a
         href="#contenu"
         className="sr-only z-[80] rounded-full bg-ink px-5 py-3 text-sm font-semibold text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
@@ -216,7 +210,6 @@ function RootComponent() {
       <Footer />
       <FloatingActions />
       <CookieConsent />
-      <Toaster position="bottom-center" />
-    </QueryClientProvider>
+    </LazyMotion>
   );
 }

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { m, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   BadgeCheck,
@@ -78,23 +78,23 @@ function Hero() {
               "radial-gradient(60% 55% at 78% 30%, rgb(255 255 255 / 0.95), transparent 70%), radial-gradient(45% 50% at 10% 90%, rgb(201 161 59 / 0.1), transparent 70%), linear-gradient(115deg, transparent 40%, rgb(233 207 122 / 0.12) 52%, transparent 64%)",
           }}
         />
-        <motion.div style={{ y: yBack }} className="absolute -left-24 top-24 text-gold/15">
+        <m.div style={{ y: yBack }} className="absolute -left-24 top-24 text-gold/15">
           <Droplet className="h-[30rem] w-[22rem]" strokeWidth={0.4} />
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           style={{ y: yFront }}
           className="absolute bottom-[-6rem] right-[38%] hidden text-gold/20 lg:block"
         >
           <Droplet className="h-60 w-44" strokeWidth={0.5} />
-        </motion.div>
+        </m.div>
       </div>
 
-      <div className="container-x grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+      <div className="container-x grid items-center gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
         <div className="min-w-0">
           <p className="eyebrow animate-fade-up">
             Société de nettoyage — Yvelines &amp; Île-de-France
           </p>
-          <h1 className="mt-6 animate-fade-up text-ink [animation-delay:80ms]">
+          <h1 className="mt-6 animate-fade-up text-[clamp(1.75rem,1rem+2.6vw,3.75rem)] text-ink [animation-delay:80ms]">
             La propreté professionnelle, avec{" "}
             <span className="relative inline-block">
               <GoldWord>exigence</GoldWord>
@@ -142,7 +142,7 @@ function Hero() {
           />
           <SmartImage
             src="/images/hero-accueil.webp"
-            alt="Espace professionnel lumineux aux sols impeccables et aux surfaces brillantes"
+            alt="Hall d'accueil lumineux au sol de marbre poli, entretenu par un agent MHLEYMANE"
             width={1920}
             height={1080}
             priority
@@ -264,7 +264,7 @@ function WhyUs() {
           </p>
           <SmartImage
             src="/images/pourquoi-nous-choisir.webp"
-            alt="Détail d'une surface polie reflétant la lumière, symbole d'un entretien soigné"
+            alt="Main gantée lustrant une surface noire polie qui reflète la lumière"
             width={1200}
             height={1500}
             sizes="(min-width: 1024px) 40vw, 100vw"

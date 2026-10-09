@@ -1,12 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { animate, motion, useInView, useReducedMotion } from "framer-motion";
+import { animate, m, useInView, useReducedMotion } from "framer-motion";
 import { Phone, Plus, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { site, phoneHref, isPlaceholder, type Stat } from "@/config/site";
+import { site, isPlaceholder, type Stat } from "@/config/site";
 import type { FAQItem } from "@/data/services";
 import { DiamondRule, DropletBullet, Sparkle } from "./motifs";
+import { PhoneLink } from "./PhoneLink";
 import { EASE_LUXE, Reveal, RevealGroup, RevealItem } from "./Reveal";
 import { SmartImage } from "./SmartImage";
 
@@ -45,7 +46,7 @@ export function StatItem({ stat, tone = "light" }: { stat: Stat; tone?: "light" 
         className={cn(
           "font-display leading-none",
           placeholder
-            ? cn("text-base tracking-[0.2em]", tone === "dark" ? "text-ivory/50" : "text-stone")
+            ? cn("text-base tracking-[0.2em]", tone === "dark" ? "text-ivory/50" : "text-stone-ink")
             : "text-gold-gradient text-5xl md:text-6xl",
         )}
       >
@@ -127,7 +128,7 @@ export function MethodTimeline({ compact = false }: { compact?: boolean }) {
   return (
     <div className="relative">
       {/* Ligne dorée qui se dessine au défilement */}
-      <motion.div
+      <m.div
         aria-hidden="true"
         className={cn(
           "absolute left-[12.5%] right-[12.5%] hidden h-px origin-left md:block",
@@ -221,16 +222,6 @@ export function Checklist({
 /* ------------------------------------------------------------------ */
 /* CTABanner                                                           */
 /* ------------------------------------------------------------------ */
-
-export function PhoneLink({ className, children }: { className?: string; children?: ReactNode }) {
-  const content = children ?? site.phone;
-  if (!phoneHref) return <span className={className}>{content}</span>;
-  return (
-    <a href={phoneHref} className={className}>
-      {content}
-    </a>
-  );
-}
 
 export function CTABanner({
   title = "Parlons de vos locaux",

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Loader2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm, type FieldPath } from "react-hook-form";
@@ -199,7 +199,7 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
           {steps.map((s, i) => (
             <li
               key={s.title}
-              className={cn("flex items-center gap-2", i <= step ? "text-ink" : "text-stone")}
+              className={cn("flex items-center gap-2", i <= step ? "text-ink" : "text-stone-ink")}
               aria-current={i === step ? "step" : undefined}
             >
               <span
@@ -221,12 +221,13 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
         <div
           className="h-[3px] overflow-hidden rounded-full bg-line"
           role="progressbar"
+          aria-label="Progression du formulaire"
           aria-valuemin={1}
           aria-valuemax={steps.length}
           aria-valuenow={step + 1}
           aria-valuetext={`Étape ${step + 1} sur ${steps.length} : ${steps[step]!.title}`}
         >
-          <motion.div
+          <m.div
             className="h-full origin-left rounded-full"
             style={{ background: "var(--gradient-gold)" }}
             initial={false}
@@ -257,7 +258,7 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
         </h2>
 
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={step}
             initial={{ opacity: 0, x: reduce ? 0 : 24 }}
             animate={{ opacity: 1, x: 0 }}
@@ -482,7 +483,7 @@ export function QuoteForm({ initialService }: { initialService?: string | undefi
                 {status === "error" && <SubmitError />}
               </>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         <p className="sr-only" aria-live="polite">

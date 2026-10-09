@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { MessageCircle, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
 import { site, phoneHref } from "@/config/site";
@@ -22,7 +22,7 @@ export function FloatingActions() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
@@ -70,7 +70,7 @@ export function FloatingActions() {
               </span>
             </Link>
           )}
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

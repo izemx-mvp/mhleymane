@@ -1,7 +1,6 @@
-import { motion, useScroll, useSpring } from "framer-motion";
-import { Facebook, Link2, Linkedin, Mail } from "lucide-react";
+import { m, useScroll, useSpring } from "framer-motion";
+import { Check, Facebook, Link2, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState, type RefObject } from "react";
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { slugify, type Block } from "@/data/posts";
 import { DropletBullet, Sparkle } from "./motifs";
@@ -14,7 +13,7 @@ export function ReadingProgress({ target }: { target: RefObject<HTMLElement | nu
   const { scrollYProgress } = useScroll({ target, offset: ["start start", "end end"] });
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
   return (
-    <motion.div
+    <m.div
       aria-hidden="true"
       className="fixed inset-x-0 top-[68px] z-[49] h-[2px] origin-left"
       style={{ scaleX, background: "var(--gradient-gold)" }}
@@ -194,13 +193,15 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
   const t = encodeURIComponent(title);
   const btn =
     "grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-ink transition duration-300 hover:-translate-y-0.5 hover:border-gold hover:text-gold-ink";
+  const [copied, setCopied] = useState<"idle" | "ok" | "error">("idle");
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
-      toast.success("Lien copié dans le presse-papiers");
+      setCopied("ok");
     } catch {
-      toast.error("Impossible de copier le lien");
+      setCopied("error");
     }
+    setTimeout(() => setCopied("idle"), 2500);
   };
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -229,8 +230,15 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
         <Mail className="h-4 w-4" aria-hidden="true" />
       </a>
       <button type="button" className={btn} onClick={copy} aria-label="Copier le lien de l'article">
-        <Link2 className="h-4 w-4" aria-hidden="true" />
+        {copied === "ok" ? (
+          <Check className="h-4 w-4 text-gold-ink" aria-hidden="true" />
+        ) : (
+          <Link2 className="h-4 w-4" aria-hidden="true" />
+        )}
       </button>
+      <span role="status" aria-live="polite" className="text-[0.8125rem] text-muted-foreground">
+        {copied === "ok" ? "Lien copié" : copied === "error" ? "Copie impossible" : ""}
+      </span>
     </div>
   );
 }

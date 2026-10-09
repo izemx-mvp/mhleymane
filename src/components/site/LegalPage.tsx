@@ -53,7 +53,9 @@ export function LegalTable({ rows }: { rows: { label: string; value: ReactNode }
           <dd
             className={cn(
               "text-sm",
-              typeof r.value === "string" && isPlaceholder(r.value) ? "text-stone" : "text-ink/80",
+              typeof r.value === "string" && isPlaceholder(r.value)
+                ? "text-stone-ink"
+                : "text-ink/80",
             )}
           >
             {r.value}

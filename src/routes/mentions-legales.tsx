@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { site, fullAddress, directorName } from "@/config/site";
 import { seo, breadcrumbLd } from "@/lib/seo";
 import { LegalPage, LegalSection, LegalTable } from "@/components/site/LegalPage";
-import { PhoneLink } from "@/components/site/blocks";
+import { PhoneLink } from "@/components/site/PhoneLink";
 
 const crumbs = [
   { name: "Accueil", path: "/" },
